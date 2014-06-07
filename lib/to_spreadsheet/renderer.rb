@@ -29,6 +29,8 @@ module ToSpreadsheet
       package     = ::Axlsx::Package.new
       spreadsheet = package.workbook
       doc         = Nokogiri::HTML::Document.parse(html)
+      # Fix for Word 2011 for Mac
+      package.use_shared_strings = true
       # Workbook <-> %document association
       context.assoc! spreadsheet, doc
       doc.css('table').each_with_index do |xml_table, i|
