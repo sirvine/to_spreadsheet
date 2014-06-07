@@ -37,10 +37,12 @@ module ToSpreadsheet
         sheet = spreadsheet.add_worksheet(
           name: xml_table.css('caption').inner_text.presence || xml_table['name'] || "Sheet #{i + 1}"
         )
+        # Deals with wrap alignment issues
+        wrap_text = package.workbook.styles.add_style({alignment: {horizontal: :center, vertical: :center, wrap_text: true}})
         # Sheet <-> %table association
         context.assoc! sheet, xml_table
         xml_table.css('tr').each do |row_node|
-          xls_row = sheet.add_row
+          xls_row = sheet.add_row, style: wrap_text
           # Row <-> %tr association
           context.assoc! xls_row, row_node
           row_node.css('th,td').each do |cell_node|
