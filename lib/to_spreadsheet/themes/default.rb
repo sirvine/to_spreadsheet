@@ -33,6 +33,7 @@ module ToSpreadsheet::Themes
             end
         end
       }
+      format 'alignment', wrap_text: true
     end
   end
 end

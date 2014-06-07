@@ -39,12 +39,16 @@ module ToSpreadsheet
         )
         # Sheet <-> %table association
         context.assoc! sheet, xml_table
+        # Custom default because the options hash won't play nice with alignment settings
+        wrap_text = s.add_style :alignment => { :horizontal => :center,
+                                                :vertical => :center ,
+                                                :wrap_text => true}
         xml_table.css('tr').each do |row_node|
           xls_row = sheet.add_row
           # Row <-> %tr association
           context.assoc! xls_row, row_node
           row_node.css('th,td').each do |cell_node|
-            xls_col = xls_row.add_cell cell_node.inner_text.lstrip
+            xls_col = xls_row.add_cell cell_node.inner_text.lstrip, style: wrap_text
             # Cell <-> th or td association
             context.assoc! xls_col, cell_node
           end
