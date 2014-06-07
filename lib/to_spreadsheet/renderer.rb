@@ -35,7 +35,7 @@ module ToSpreadsheet
       context.assoc! spreadsheet, doc
       doc.css('table').each_with_index do |xml_table, i|
         sheet = spreadsheet.add_worksheet(
-            name: xml_table.css('caption').inner_text.presence || xml_table['name'] || "Sheet #{i + 1}"
+          name: xml_table.css('caption').inner_text.presence || xml_table['name'] || "Sheet #{i + 1}"
         )
         # Sheet <-> %table association
         context.assoc! sheet, xml_table
