@@ -38,7 +38,7 @@ module ToSpreadsheet
           name: xml_table.css('caption').inner_text.presence || xml_table['name'] || "Sheet #{i + 1}"
         )
         # Deals with wrap alignment issues
-        wrap_text = package.workbook.styles.add_style({alignment: {horizontal: :center, vertical: :center, wrap_text: true}})
+        wrap_text = spreadsheet.styles.add_style({alignment: {horizontal: :center, vertical: :center, wrap_text: true}})
         # Sheet <-> %table association
         context.assoc! sheet, xml_table
         xml_table.css('tr').each do |row_node|
